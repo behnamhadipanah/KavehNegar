@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using KavehNegar.Logic.Context;
+using Newtonsoft.Json;
 using ServiceStack.Redis;
 
 namespace KavehNegar.Logic.Repository.Redis

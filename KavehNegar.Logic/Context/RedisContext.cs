@@ -1,4 +1,8 @@
-﻿namespace KavehNegar.Logic.Context
+﻿using KavehNegar.Logic.Model;
+using Microsoft.Extensions.Options;
+using ServiceStack.Redis;
+
+namespace KavehNegar.Logic.Context
 {
     public class RedisContext : IRedisContext
     {

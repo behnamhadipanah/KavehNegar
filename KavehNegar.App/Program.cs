@@ -2,9 +2,9 @@
 using KavehNegar.Logic.Repository.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Concurrent;
 using KavehNegar.Logic.Context;
 using KavehNegar.Logic.Model;
+using KavehNegar.Logic.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace KavehNegar.App
@@ -17,6 +17,7 @@ namespace KavehNegar.App
         static async Task Main(string[] args)
         {
             #region config
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false);
@@ -28,24 +29,25 @@ namespace KavehNegar.App
 
             #endregion
 
-            var list = new ConcurrentBag<string>();
-            string[] dirNames = { ".", ".." };
-            List<Task> tasks = new List<Task>();
-            foreach (var dirName in dirNames)
-            {
-                Task t = Task.Run(() =>
-                {
 
+            var displayData = Task.Factory.StartNew(() => {
+                var excel = new ExcelServices();
+                return  excel.Read();
+            }).
+                ContinueWith((x) => {
+                        var redis = new RedisService(host.Services);
+                        var writeRedis = redis.Write(x.Result);
+                }).
+                ContinueWith((x) => {
+                    var redis = new RedisService(host.Services);
+                    var readRedis = redis.Read();
+
+                    var sql = new SqlService(Configuration);
+                    return sql.Write(readRedis);
                 });
-                tasks.Add(t);
-            }
-            Task.WaitAll(tasks.ToArray());
-            foreach (Task t in tasks)
-                Console.WriteLine("Task {0} Status: {1}", t.Id, t.Status);
+            Console.WriteLine(displayData.Result);
 
-            Console.WriteLine("Number of files read: {0}", list.Count);
         }
-
 
         static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

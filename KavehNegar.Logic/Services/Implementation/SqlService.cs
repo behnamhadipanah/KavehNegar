@@ -1,7 +1,11 @@
 ﻿using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 using KavehNegar.Logic.Contracts;
 using KavehNegar.Logic.Model;
 using KavehNegar.Logic.Model.Entity;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace KavehNegar.Logic.Services.Implementation
 {

@@ -1,4 +1,5 @@
-﻿using KavehNegar.Logic.Contracts;
+﻿using KavehNegar.Logic.Context;
+using KavehNegar.Logic.Contracts;
 using KavehNegar.Logic.Model;
 using KavehNegar.Logic.Repository.Redis;
 

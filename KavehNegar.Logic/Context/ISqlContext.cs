@@ -1,4 +1,8 @@
-﻿namespace KavehNegar.Logic.Context
+﻿using KavehNegar.Logic.SharedKernel;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace KavehNegar.Logic.Context
 {
     public interface ISqlContext
     {

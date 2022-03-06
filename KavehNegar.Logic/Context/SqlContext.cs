@@ -1,4 +1,8 @@
-﻿namespace KavehNegar.Logic.Context
+﻿using KavehNegar.Logic.Model.Entity;
+using KavehNegar.Logic.SharedKernel;
+using Microsoft.EntityFrameworkCore;
+
+namespace KavehNegar.Logic.Context
 {
     public class SqlContext : DbContext, ISqlContext
     {

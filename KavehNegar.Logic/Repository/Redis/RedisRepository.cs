@@ -1,4 +1,5 @@
-﻿using KavehNegar.Logic.Model;
+﻿using KavehNegar.Logic.Context;
+using KavehNegar.Logic.Model;
 
 namespace KavehNegar.Logic.Repository.Redis
 {
